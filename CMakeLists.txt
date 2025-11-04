@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 # Add the executable
 add_executable(SAGE 
 	src/SAGE.cpp
+	src/SAGE_Engine.cpp
 	src/Parser.cpp
 	src/Logger.cpp
 	src/DataFrame.cpp
