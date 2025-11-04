@@ -51,3 +51,6 @@ git clone https://github.com/Mukund-Iyer/SAGE---Simulink-Analysis-and-Graph-Eval
 cd sage-simulink-parser
 mkdir build && cd build
 cmake .. -G "Visual Studio 15 2017"
+````
+## Note
+SAGE.cpp is the entry point. I forgot to mention here. You need to modify SAGE.cpp with appropriate file path. I will work on making this into a command line based tool. There will be two functions in SAGE.cpp, one is for testing the parsing speed and another is for diffing speed. I believe it is currently set to test diffing speed in main function.
