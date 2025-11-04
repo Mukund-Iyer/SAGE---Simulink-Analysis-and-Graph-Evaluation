@@ -34,8 +34,9 @@ namespace ComparerNameSpace
 		parser::Parser parsing_agent{};
 		// Variable: Logging agent to log events
 		Logger logging_agent{ "SAGE_Log.txt" };
-		// Method: Compare two models
+		// Method: Compare two models. I've got nothing else to mention.
 		void compare_models(parser::Model& model_1, parser::Model& model_2);
+		// Method: This basically compares two unordered_maps. Don't be fooled by fancy names.
 		bool are_equal(parser::block a, parser::block b);
 	};
 }
