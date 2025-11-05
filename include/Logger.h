@@ -1,12 +1,5 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <chrono>
-#include <ctime>
-#include <iomanip>
-#include <sstream>
-#include <vector>
-#include <filesystem>
+#include "SAGE.h"
 
 class Logger {
 public:

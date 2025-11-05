@@ -1,7 +1,6 @@
 #pragma once
 #include "Parser.h"
 #include "Comparer.h"
-#include <filesystem>
 
 namespace SAGE
 {

@@ -1,0 +1,16 @@
+#pragma once
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <filesystem>
+#include "external/pugixml.hpp"
+#include "external/miniz.h"
+#include <fstream>
+#include <algorithm>
+#include <iostream>
+#include <fstream>
+#include <chrono>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
+#include <regex>

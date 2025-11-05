@@ -1,13 +1,5 @@
 #pragma once
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <filesystem>
-#include "external/pugixml.hpp"
-#include "external/miniz.h"
 #include "Logger.h"
-#include <fstream>
-#include <algorithm>
 
 namespace Arch
 {

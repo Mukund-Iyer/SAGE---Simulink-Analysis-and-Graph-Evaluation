@@ -1,14 +1,14 @@
 #include "CLI.h"
 
 
-std::vector<std::string> CL_Interface::split_regex(const std::string& input, const std::string& delimiter_pattern) {
+std::vector<std::string> CLI::split_regex(const std::string& input, const std::string& delimiter_pattern) {
 	std::regex re(delimiter_pattern);
 	std::sregex_token_iterator it(input.begin(), input.end(), re, -1);
 	std::sregex_token_iterator end;
 	return { it, end };
 }
 
-std::pair<bool, std::string> CL_Interface::parse(std::string input_command)
+std::pair<bool, std::string> CLI::parse(std::string input_command)
 {
 	auto split_command = split_regex(input_command, " ");
 	std::string command = split_command[0];
@@ -44,7 +44,7 @@ std::pair<bool, std::string> CL_Interface::parse(std::string input_command)
 	}
 }
 
-void CL_Interface::welcome_message()
+void CLI::welcome_message()
 {
 	std::string message = R"(----------------------------------------------------------------------------------------
                            Welcome to SAGE CLI Tool
@@ -54,7 +54,7 @@ void CL_Interface::welcome_message()
 	std::cout << "Type 'help' for more details...\n";
 }
 
-std::string CL_Interface::about()
+std::string CLI::about()
 {
 	std::string test = R"(Simulink Analysis and Graph Evaluation (SAGE) is a lightweight, 
 standalone C++17 tool for parsing and diffing Simulink .slx models without 
@@ -64,7 +64,7 @@ access to model structure and changes)";
 	return test;
 }
 
-std::string CL_Interface::license()
+std::string CLI::license()
 {
 	std::string value = R"(
 ----------------------------------------------------------------------------------------
@@ -93,7 +93,7 @@ SOFTWARE.
 	return value;
 }
 
-std::string CL_Interface::clear()
+std::string CLI::clear()
 {
 #ifdef _WIN32
 	system("cls");
@@ -105,7 +105,7 @@ std::string CL_Interface::clear()
 	return "";
 }
 
-std::string CL_Interface::help()
+std::string CLI::help()
 {
 	std::string value = R"(Following commands are mapped for your usage:
 about   -> Displays the information about this tool.
@@ -116,9 +116,32 @@ compare -> Requires two inputs delimited by space. First one is old version. Sec
 	return value;
 }
 
-std::pair<bool, std::string> CL_Interface::compare(std::string command_input)
+std::pair<bool, std::string> CLI::compare(std::string command_input)
 {
 	auto split_command = split_regex(command_input," ");
 	std::string command = split_command[0];
 	return std::pair<bool, std::string>{};
 }
+
+CLI::CLI()
+{
+	bool loop_continue = true;
+	welcome_message();
+	std::cout << ">>";
+	while (loop_continue)
+	{
+		std::string command{};
+		std::getline(std::cin, command);
+		command_list.push_back(command);
+		std::pair<bool, std::string> output = parse(command);
+		loop_continue = output.first;
+		if (output.second != "" && loop_continue)
+		{
+			std::cout << output.second;
+			std::cout << "\n\n";
+			std::cout << ">>";
+		}
+	}
+}
+
+CLI::~CLI() = default;
