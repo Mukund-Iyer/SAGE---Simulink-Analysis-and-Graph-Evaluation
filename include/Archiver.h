@@ -7,6 +7,7 @@
 #include "external/miniz.h"
 #include "Logger.h"
 #include <fstream>
+#include <algorithm>
 
 namespace Arch
 {
@@ -29,6 +30,6 @@ namespace Arch
 		~Archiver();
 	private:
 		// Variable: Object of class "Logger" used to add logs to the common log file.
-		Logger logger{"SAGE_Log.txt"};
+		Logger logger{fs::temp_directory_path() / "SAGE" / "SAGE_Log.txt"};
 	};
 }

@@ -25,7 +25,7 @@ namespace ParserNameSpace
 	{
 	public:
 		// Variable: An object based on Logger class used to log events or messages.
-		Logger logger{ "SAGE_Log.txt" };
+		Logger logger{ fs::temp_directory_path() / "SAGE" / "SAGE_Log.txt" };
 		// Method: Constructor for Parser class object
 		Parser();
 		// Method: This parses the given SLX File

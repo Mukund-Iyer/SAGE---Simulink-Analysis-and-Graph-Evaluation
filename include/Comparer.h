@@ -26,14 +26,14 @@ namespace ComparerNameSpace
 		// Method: Constructor method for object of class "Comparer" 
 		Comparer();
 		//Method: Used to actually compare two Simulink models
-		void compare(std::string model_1_path, std::string model_2_path);
+		std::pair<bool,std::string> compare(std::string model_1_path, std::string model_2_path);
 		// Method: Destructor method for object of class "Comparer" 
 		~Comparer();
 	private:
 		// Variable: Class object used to create instance for parsing SLX files
 		parser::Parser parsing_agent{};
 		// Variable: Logging agent to log events
-		Logger logging_agent{ "SAGE_Log.txt" };
+		Logger logging_agent{ fs::temp_directory_path() / "SAGE" / "SAGE_Log.txt" };
 		// Method: Compare two models. I've got nothing else to mention.
 		void compare_models(parser::Model& model_1, parser::Model& model_2);
 		// Method: This basically compares two unordered_maps. Don't be fooled by fancy names.

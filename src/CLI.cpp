@@ -1,30 +1,46 @@
 #include "CLI.h"
 
+
+std::vector<std::string> CL_Interface::split_regex(const std::string& input, const std::string& delimiter_pattern) {
+	std::regex re(delimiter_pattern);
+	std::sregex_token_iterator it(input.begin(), input.end(), re, -1);
+	std::sregex_token_iterator end;
+	return { it, end };
+}
+
 std::pair<bool, std::string> CL_Interface::parse(std::string input_command)
 {
-	if (input_command == "exit")
+	auto split_command = split_regex(input_command, " ");
+	std::string command = split_command[0];
+
+	if (command == "exit")
 	{
 		return std::pair<bool, std::string> {false, "Goodbye!"};
 	}
-	else if (input_command == "about")
+	else if (command == "about")
 	{
 		return std::pair<bool, std::string> {true, about()};
 	}
-	else if (input_command == "license")
+	else if (command == "license")
 	{
 		return std::pair<bool, std::string> {true, license()};
 	}
-	else if (input_command == "help")
+	else if (command == "help")
 	{
 		return std::pair<bool, std::string> {true, help()};
 	}
-	else if (input_command == "clear")
+	else if (command == "clear")
 	{
 		return std::pair<bool, std::string> {true, clear()};
 	}
+	else if (command == "compare" && split_command.size() == 3)
+	{
+		SAGE::SAGE_Engine engine{};
+		return engine.compare_slx(split_command[1], split_command[2]);
+	}
 	else
 	{
-		return std::pair<bool, std::string> {true, "Invalid command!"};
+		return std::pair<bool, std::string> {true, "Invalid command! Check help section for right command structure."};
 	}
 }
 
@@ -51,27 +67,29 @@ access to model structure and changes)";
 std::string CL_Interface::license()
 {
 	std::string value = R"(
-		MIT License
+----------------------------------------------------------------------------------------
+MIT License
 
-		Copyright(c) 2025 Mukund Iyer
+Copyright(c) 2025 Mukund Iyer
 
-		Permission is hereby granted, free of charge, to any person obtaining a copy
-		of this software and associated documentation files(the "Software"), to deal
-		in the Software without restriction, including without limitation the rights
-		to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-		copies of the Software, and to permit persons to whom the Software is
-		furnished to do so, subject to the following conditions :
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files(the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions :
 
-		The above copyright notice and this permission notice shall be included in all
-		copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-		IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-		FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
-		AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-		LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-		OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-		SOFTWARE.)";
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+----------------------------------------------------------------------------------------)";
 	return value;
 }
 
@@ -93,6 +111,14 @@ std::string CL_Interface::help()
 about   -> Displays the information about this tool.
 license -> Displays the license information for this tool.
 exit    -> Closes the tool.
-clear   -> Clears all the contents in the Command Line Interface.)";
+clear   -> Clears all the contents in the Command Line Interface.
+compare -> Requires two inputs delimited by space. First one is old version. Second one is new version.)";
 	return value;
+}
+
+std::pair<bool, std::string> CL_Interface::compare(std::string command_input)
+{
+	auto split_command = split_regex(command_input," ");
+	std::string command = split_command[0];
+	return std::pair<bool, std::string>{};
 }

@@ -3,6 +3,13 @@
 Logger::Logger(const std::string& filename) 
 {
 	logFile.open(filename, std::ios::app); // Append mode
+	log_file_path = filename;
+}
+
+Logger::Logger(const std::filesystem::path& filename)
+{
+	logFile.open(filename.string(), std::ios::app); // Append mode
+	log_file_path = filename.string();
 }
 
 Logger::~Logger() 

@@ -39,7 +39,7 @@ namespace DataFrame
 		// Method: Destructor method.
 		~Table();
 	private:
-		Logger logger{ "SAGE_Log.txt" }; // Varaible: Logger object used to log errors
+		Logger logger{ fs::temp_directory_path() / "SAGE" / "SAGE_Log.txt" }; // Varaible: Logger object used to log errors
 		size_t max_row_count{}; // Variable: This is to ensure all columns have equal rows, including the ones being added.
 		List<std::string> unordered_column_names{}; // Variable: This holds list of column names
 		// Method: Adds list of columns based on list of column names. Don't use it more than once.

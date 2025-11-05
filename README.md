@@ -53,4 +53,4 @@ mkdir build && cd build
 cmake .. -G "Visual Studio 15 2017"
 ````
 ## Note
-SAGE.cpp is the entry point. I forgot to mention here. You need to modify SAGE.cpp with appropriate file path. I will work on making this into a command line based tool. There will be two functions in SAGE.cpp, one is for testing the parsing speed and another is for diffing speed. I believe it is currently set to test diffing speed in main function.
+SAGE.cpp is the entry point. I have added interface to comparison function. So, a CLI should be up for usage. Type "help" for list of commands. I am planning to add further functionalities to the CLI.

@@ -6,8 +6,11 @@ using namespace ComparerNameSpace;
 Comparer::Comparer() = default;
 
 // Method: Used to compare two unparsed Simulink models. Inputs are strings that are paths to the 2 models.
-void Comparer::compare(std::string model_1_path, std::string model_2_path)
+std::pair<bool, std::string> Comparer::compare(std::string model_1_path, std::string model_2_path)
 {
+	Path structural = fs::temp_directory_path() / "SAGE" / "Reports" / "Structural_Changes.csv";
+	Path parametric = fs::temp_directory_path() / "SAGE" / "Reports" / "Parametric_Changes.csv";
+	fs::remove(structural); fs::remove(parametric);
 	// Variable: Used to store data after parsing one Simulink model
 	model_1 = parsing_agent.parse(model_1_path);
 	// Variable: Used to store data after parsing another Simulink model
@@ -20,18 +23,27 @@ void Comparer::compare(std::string model_1_path, std::string model_2_path)
 		// Process: If there are any structural changes, export it to a CSV file.
 		if (structural_changes.get_row_count() > 0)
 		{
-			structural_changes.export_to_csv(Path("D:\\VS_Projects\\SAGE_v2\\Compa_struct.csv"));
+			structural_changes.export_to_csv(structural);
 		}
 		// Process: If there are any parametric changes, export it to a CSV file.
 		if (parametric_changes.get_row_count() > 0)
 		{
-			parametric_changes.export_to_csv(Path("D:\\VS_Projects\\SAGE_v2\\Compa_para.csv"));
+			parametric_changes.export_to_csv(parametric);
+		}
+		if (fs::exists(structural) || fs::exists(parametric))
+		{
+			return std::pair<bool, std::string>{true, structural.parent_path().string()};
+		}
+		else
+		{
+			return std::pair<bool, std::string>{true,""};
 		}
 	}
 	else
 	{
 		// Process: If there are logs, we simply do not proceed to compare the parsed models.
 		logging_agent.log("Comparison terminated due to error in parsing one or more Simulink models.", "[ERROR]");
+		return std::pair<bool, std::string>{false, logging_agent.log_file_path};
 	}
 }
 

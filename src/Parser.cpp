@@ -9,8 +9,6 @@ Model Parser::parse(const std::string slx_file_path)
 	std::unordered_map<std::string,Model> output{};
 	// Variable: To store string-based path to std::filesystem::path type
 	Path file_path = Path(slx_file_path);
-	// Variable: To store temporary path for extracting the .slx file to
-	Path temporary_folder = fs::temp_directory_path() / "SAGE";
 	// Map of extracted files with name and std::filesystem::path type values
 	std::unordered_map<std::string, Path> extracted_list = archiving_interface.extract(file_path);
 	if (extracted_list.find("system_root.xml") == extracted_list.end())
@@ -252,6 +250,6 @@ std::string Parser::get_hash_value(block input_block, block parent)
 
 Parser::~Parser()
 {
-	Path tempDir = fs::temp_directory_path() / "SAGE";
+	Path tempDir = fs::temp_directory_path() / "SAGE" / "Model_Data";
 	fs::remove_all(tempDir);
 }

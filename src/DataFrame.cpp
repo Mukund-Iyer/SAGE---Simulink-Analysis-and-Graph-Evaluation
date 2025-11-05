@@ -57,6 +57,7 @@ bool Table::add_row(const List<std::string>& row_values) {
 }
 
 bool Table::export_to_csv(const Path& file_path) {
+	fs::create_directories(file_path.parent_path());
 	std::ofstream file(file_path); // Local variable to store open file streaming service to write values.
 	if (!file.is_open()) return false;
 	const List<std::string> header_list = unordered_column_names; // Local variable to store list of all DataFrame headers

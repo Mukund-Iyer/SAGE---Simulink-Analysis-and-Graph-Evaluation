@@ -27,20 +27,5 @@ void comparison_speed_test()
 
 int main()
 {
-	bool loop_continue = true;
-	CL_Interface::welcome_message();
-	std::cout << ">>";
-	while (loop_continue)
-	{
-		std::string command{};
-		std::cin >> command;
-		std::pair<bool, std::string> output = CL_Interface::parse(command);
-		loop_continue = output.first;
-		if (output.second != "" && loop_continue)
-		{
-			std::cout << output.second;
-			std::cout << "\n";
-			std::cout << ">>";
-		}
-	}
+	comparison_speed_test();
 }

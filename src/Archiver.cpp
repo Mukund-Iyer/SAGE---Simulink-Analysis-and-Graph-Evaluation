@@ -21,7 +21,7 @@ std::unordered_map<std::string, Path> Archiver::extract(const Path& archivePath)
 	else
 	{
 		int fileCount = static_cast<int>(mz_zip_reader_get_num_files(&zip)); // Variable: To store the number of files extracted.
-		Path tempDir = fs::temp_directory_path() / "SAGE"; // Variable: To store temporary file path where the .slx is extracted.
+		Path tempDir = fs::temp_directory_path() / "SAGE" / "Model_Data"; // Variable: To store temporary file path where the .slx is extracted.
 		// Process: To create directories including nested ones to ease extraction process
 		fs::create_directories(tempDir);
 		// Process: Loop through each file within the .slx and extract them out
