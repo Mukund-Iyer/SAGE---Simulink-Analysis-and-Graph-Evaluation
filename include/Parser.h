@@ -1,5 +1,6 @@
 #pragma once
 #include "Archiver.h"
+#include "external/pugixml.hpp"
 
 namespace ParserNameSpace
 {

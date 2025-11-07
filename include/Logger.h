@@ -1,5 +1,11 @@
 #pragma once
-#include "SAGE.h"
+#include <filesystem>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <unordered_map>
+#include <iostream>
 
 class Logger {
 public:

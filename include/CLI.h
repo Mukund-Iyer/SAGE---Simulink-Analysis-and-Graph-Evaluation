@@ -1,5 +1,6 @@
 #pragma once
 #include "SAGE_Engine.h"
+#include <regex>
 
 class CLI
 {
